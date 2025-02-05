@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class MenuController : MonoBehaviour
 {
     private GameManager gameManager; 
+    public CarSelection carSelection;
     
     private void Start()
     {
@@ -23,6 +24,16 @@ public class MenuController : MonoBehaviour
     public void Quit()
     {
         gameManager.Quit();
+    }
+    
+    public void OnSelectCarLeft()
+    {
+        carSelection.SelectCarLeft();
+    }
+
+    public void OnSelectCarRight()
+    {
+        carSelection.SelectCarRight();
     }
 
 }
