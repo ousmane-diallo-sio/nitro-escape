@@ -1658,7 +1658,7 @@ MonoBehaviour:
   nitroSfx: {fileID: 8300000, guid: c9af5f1f71fcf4c0786e40cbb40e3d38, type: 3}
   shotSfx: {fileID: 8300000, guid: 2b7a0d839c19e43f7aab015158ea3f94, type: 3}
   carSfx: {fileID: 8300000, guid: a1237dc1845a947c6910643227f2d856, type: 3}
-  carCrashSfx: {fileID: 0}
+  carCrashSfx: {fileID: 8300000, guid: 8e95fb07a09f3412eac131b9fb813612, type: 3}
 --- !u!4 &2087613430
 Transform:
   m_ObjectHideFlags: 0
