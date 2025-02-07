@@ -29,13 +29,13 @@ public class MenuController : MonoBehaviour
     public void OnSelectCarLeft()
     {
         carSelection.SelectCarLeft();
+        gameManager.SetSelectedCarIndex(carSelection.GetCurrentCarIndex()); 
     }
 
     public void OnSelectCarRight()
     {
         carSelection.SelectCarRight();
+        gameManager.SetSelectedCarIndex(carSelection.GetCurrentCarIndex()); 
     }
-
 }
-
 

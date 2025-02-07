@@ -1,8 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class CarController : MonoBehaviour
 {
+    private CarSelection carSelection; 
+    private SpriteRenderer spriteRenderer;
+
     public float moveSpeed = 5f;
     public float turnSpeed = 400f;
     public float nitroMultiplier = 2f;
@@ -10,14 +14,12 @@ public class CarController : MonoBehaviour
     public float currentNitro = 0f;
     public float maxNitro = 100f;
     public float currentHealth = 60f;
-
     public float maxHealth = 100f;
 
     public Slider nitroBar;
     public Slider healthBar;
 
     private Rigidbody2D rb;
-
     private Camera mainCamera;
     public Vector3 cameraOffset;
 
@@ -33,6 +35,26 @@ public class CarController : MonoBehaviour
 
         healthBar.maxValue = maxHealth;
         healthBar.value = currentHealth;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        carSelection = GetComponent<CarSelection>(); 
+
+        int selectedCarIndex = GameManager.instance.selectedCarIndex;
+
+        if (carSelection.carSprites == null || carSelection.carSprites.Count == 0)
+        {
+            Debug.LogError("La liste carSprites de CarSelection est vide ou non assignée.");
+            return;
+        }
+        
+        if (selectedCarIndex >= 0 && selectedCarIndex < carSelection.carSprites.Count)
+        {
+            spriteRenderer.sprite = carSelection.carSprites[selectedCarIndex];
+        }
+        else
+        {
+            Debug.LogError("Selected car index is out of range: " + selectedCarIndex);
+        }
     }
 
     void Update()
@@ -45,7 +67,7 @@ public class CarController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float prevMove = rb.linearVelocity.magnitude;
+        float prevMove = rb.velocity.magnitude;
         float move = Input.GetAxis("Vertical") * moveSpeed;
         float turn = Input.GetAxis("Horizontal") * turnSpeed;
 
@@ -64,7 +86,7 @@ public class CarController : MonoBehaviour
             if (!nitroEffect.activeSelf)
             {
                 EventManager.Instance.NitroStateChanged(true);
-                move *= nitroMultiplier; // Speed boost
+                move *= nitroMultiplier; // Boost de vitesse
                 nitroEffect.SetActive(true);
             }
         }
@@ -74,7 +96,7 @@ public class CarController : MonoBehaviour
             EventManager.Instance.NitroStateChanged(false);
         }
 
-        rb.linearVelocity = transform.up * move;
+        rb.velocity = transform.up * move;
         rb.angularVelocity = -turn;
 
         currentNitro = Mathf.Clamp(currentNitro, 0, maxNitro);
@@ -99,9 +121,8 @@ public class CarController : MonoBehaviour
 
     public void AddHealth(float amount)
     {
-        currentHealth = Mathf.Clamp(maxNitro + amount, 0, maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
     }
-
 
     void Shoot()
     {
@@ -123,5 +144,4 @@ public class CarController : MonoBehaviour
             currentHealth -= 5f;
         }
     }
-
 }

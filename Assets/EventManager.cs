@@ -7,10 +7,10 @@ public class EventManager : MonoBehaviour
 
     public event Action<bool> OnNitroStateChanged;
     public event Action OnShotFired;
-
     public event Action OnCarMoved;
     public event Action OnCarStopped;
     public event Action OnCarCrashed;
+    public event Action<int> OnVehicleChanged; 
 
     private void Awake()
     {
@@ -52,5 +52,11 @@ public class EventManager : MonoBehaviour
     {
         Debug.Log("Car crashed");
         OnCarCrashed?.Invoke();
+    }
+
+    public void VehicleChanged(int carIndex) 
+    {
+        Debug.Log("Vehicle changed to index: " + carIndex);
+        OnVehicleChanged?.Invoke(carIndex);
     }
 }
