@@ -1028,14 +1028,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1463687918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4044b501686a42c68d66eb14f341aa7, type: 3}
+  m_Script: {fileID: 11500000, guid: edc7d7dd386d74d00a0a36477d425f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carSpriteRenderer: {fileID: 1463687922}
-  carSprites:
-  - {fileID: 205227318, guid: ae3f8d97c2a66409c95d95ebaf9ebaef, type: 3}
-  - {fileID: -1512971583, guid: d01f13f366efe4809a27e460f3d3459c, type: 3}
-  - {fileID: 1384855168, guid: 4d3b63dee2b5f421ea328b59110b318d, type: 3}
+  moveSpeed: 5
+  turnSpeed: 400
+  nitroMultiplier: 2
+  nitroConsumptionRate: 10
+  currentNitro: 0
+  maxNitro: 100
+  currentHealth: 60
+  maxHealth: 100
+  nitroBar: {fileID: 0}
+  healthBar: {fileID: 0}
+  cameraOffset: {x: 0, y: 0, z: 0}
+  nitroEffect: {fileID: 0}
 --- !u!1 &1467890057
 GameObject:
   m_ObjectHideFlags: 0

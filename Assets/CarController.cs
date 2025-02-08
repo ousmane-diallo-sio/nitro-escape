@@ -37,24 +37,27 @@ public class CarController : MonoBehaviour
         healthBar.value = currentHealth;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
-        carSelection = GetComponent<CarSelection>(); 
+
+        // Vérification de GameManager et de la liste carSprites
+        if (GameManager.instance == null || GameManager.instance.carSprites == null || GameManager.instance.carSprites.Count == 0)
+        {
+            Debug.LogError("CarController: GameManager instance or carSprites list is missing!");
+            return; // Important : Sortir de la fonction Start() en cas d'erreur
+        }
 
         int selectedCarIndex = GameManager.instance.selectedCarIndex;
+        Debug.Log("CarController: Selected car index = " + selectedCarIndex); // Pour le debug
 
-        if (carSelection.carSprites == null || carSelection.carSprites.Count == 0)
+        // Vérification de l'index et assignation du sprite
+        if (selectedCarIndex >= 0 && selectedCarIndex < GameManager.instance.carSprites.Count)
         {
-            Debug.LogError("La liste carSprites de CarSelection est vide ou non assignée.");
-            return;
-        }
-        
-        if (selectedCarIndex >= 0 && selectedCarIndex < carSelection.carSprites.Count)
-        {
-            spriteRenderer.sprite = carSelection.carSprites[selectedCarIndex];
+            spriteRenderer.sprite = GameManager.instance.carSprites[selectedCarIndex];
         }
         else
         {
-            Debug.LogError("Selected car index is out of range: " + selectedCarIndex);
+            Debug.LogError("CarController: Selected car index is out of range: " + selectedCarIndex);
         }
+
     }
 
     void Update()

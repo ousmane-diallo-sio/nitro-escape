@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CarSelection : MonoBehaviour
 {
     public SpriteRenderer carSpriteRenderer;
-    public List<Sprite> carSprites;
     private int currentCarIndex = 0;
 
     private void Start()
@@ -16,34 +13,29 @@ public class CarSelection : MonoBehaviour
     public void SelectCarLeft()
     {
         currentCarIndex--;
-        if (currentCarIndex < 0) currentCarIndex = carSprites.Count - 1;
+        if (currentCarIndex < 0) currentCarIndex = GameManager.instance.carSprites.Count - 1;
         UpdateCarSprite();
-        EventManager.Instance.VehicleChanged(currentCarIndex);
+        GameManager.instance.SetSelectedCarIndex(currentCarIndex);
     }
 
     public void SelectCarRight()
     {
         currentCarIndex++;
-        if (currentCarIndex >= carSprites.Count) currentCarIndex = 0;
+        if (currentCarIndex >= GameManager.instance.carSprites.Count) currentCarIndex = 0;
         UpdateCarSprite();
-        EventManager.Instance.VehicleChanged(currentCarIndex);
+        GameManager.instance.SetSelectedCarIndex(currentCarIndex);
     }
 
     private void UpdateCarSprite()
+	{
+    Debug.Log("UpdateCarSprite() called. Index: " + currentCarIndex); 
+
+    if (GameManager.instance == null || GameManager.instance.carSprites == null || GameManager.instance.carSprites.Count == 0 || carSpriteRenderer == null)
     {
-        if (carSprites != null && carSprites.Count > 0 && carSpriteRenderer != null)
-        {
-            Debug.Log("Mise à jour du sprite de la voiture à l'index : " + currentCarIndex);
-            carSpriteRenderer.sprite = carSprites[currentCarIndex];
-        }
-        else
-        {
-            Debug.LogError("La liste des sprites de voiture est vide ou le SpriteRenderer n'est pas assigné.");
-        }
+        Debug.LogError("Problèmes avec GameManager, la liste de sprites ou le SpriteRenderer dans CarSelection.");
+        return;
     }
 
-    public int GetCurrentCarIndex()
-    {
-        return currentCarIndex;
-    }
+    carSpriteRenderer.sprite = GameManager.instance.carSprites[currentCarIndex];
+	}
 }

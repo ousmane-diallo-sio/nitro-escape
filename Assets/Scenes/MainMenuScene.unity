@@ -199,7 +199,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -37.536, y: 0}
+  m_AnchoredPosition: {x: -122, y: 0}
   m_SizeDelta: {x: 75.073, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &388560405
@@ -696,7 +696,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 258, y: -160}
+  m_AnchoredPosition: {x: 603, y: -215}
   m_SizeDelta: {x: 320, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &698994627
@@ -948,6 +948,7 @@ RectTransform:
   - {fileID: 698994626}
   - {fileID: 388560404}
   - {fileID: 1644297210}
+  - {fileID: 1811513804}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -991,7 +992,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 258, y: -84}
+  m_AnchoredPosition: {x: 603, y: -118}
   m_SizeDelta: {x: 320, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1080931165
@@ -1281,6 +1282,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a7674eea8394919be37f03506bb27e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carSprites:
+  - {fileID: 205227318, guid: ae3f8d97c2a66409c95d95ebaf9ebaef, type: 3}
+  - {fileID: -1512971583, guid: d01f13f366efe4809a27e460f3d3459c, type: 3}
+  - {fileID: 1384855168, guid: 4d3b63dee2b5f421ea328b59110b318d, type: 3}
 --- !u!1 &1644297209
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,7 +1322,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -418, y: 0}
+  m_AnchoredPosition: {x: -825, y: 0}
   m_SizeDelta: {x: 75.073, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1644297211
@@ -1444,10 +1449,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carSpriteRenderer: {fileID: 1811513803}
-  carSprites:
-  - {fileID: 205227318, guid: ae3f8d97c2a66409c95d95ebaf9ebaef, type: 3}
-  - {fileID: -1512971583, guid: d01f13f366efe4809a27e460f3d3459c, type: 3}
-  - {fileID: 1384855168, guid: 4d3b63dee2b5f421ea328b59110b318d, type: 3}
 --- !u!4 &1729064091
 Transform:
   m_ObjectHideFlags: 0
@@ -1523,8 +1524,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 205227318, guid: ae3f8d97c2a66409c95d95ebaf9ebaef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1543,12 +1544,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811513802}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 251, y: 392, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -473, y: -12.5, z: 0}
+  m_LocalScale: {x: 1000, y: 1000, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 911711721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2008925224
 GameObject:
@@ -1832,4 +1833,3 @@ SceneRoots:
   - {fileID: 1251760458}
   - {fileID: 1729064091}
   - {fileID: 143504296}
-  - {fileID: 1811513804}
