@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class RoadGenerator : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class RoadGenerator : MonoBehaviour
     public GameObject car;
     public GameObject enemyCar;
     public Slider progressBar;
+    public VideoPlayer videoPlayer;
+    public RawImage videoDisplay;
 
 
     public int roadLength = 200;
@@ -24,6 +27,8 @@ public class RoadGenerator : MonoBehaviour
     public int heartCount;
     public int enemyCount = 0;
     public int maxEnemyCount;
+
+    private bool gameEnded = false;
 
 
 
@@ -36,14 +41,37 @@ public class RoadGenerator : MonoBehaviour
         EventManager.Instance.OnPoliceCarDespawned += () => enemyCount--;
         StartCoroutine(GenerateEnemiesGradually());
 
+        videoPlayer.loopPointReached += EndVideo;
+        videoPlayer.targetTexture = new RenderTexture(Screen.width, Screen.height, 16);
+        videoDisplay.texture = videoPlayer.targetTexture;
+        videoDisplay.gameObject.SetActive(false);
+
     }
 
     private void FixedUpdate()
     {
         if (car != null)
         {
-            progressBar.value = car.transform.position.y / (roadLength * segmentLength);
+            progressBar.value = (car.transform.position.y) / (float)(roadLength * (segmentLength * 0.6));
+            if (progressBar.value >= 1.0f)
+            {
+                gameEnded = true;
+                PlayEndGameVideo();
+            }
         }
+    }
+
+    private void PlayEndGameVideo()
+    {
+        videoDisplay.gameObject.SetActive(true);
+        videoPlayer.Play();
+    }
+
+    private void EndVideo(VideoPlayer vp)
+    {
+        Debug.Log("Video finished!");
+        SceneManager.LoadScene("MainMenuScene");
+        videoDisplay.gameObject.SetActive(false);
     }
 
     private void GetMapSizes()
