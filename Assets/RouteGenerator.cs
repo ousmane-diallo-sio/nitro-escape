@@ -115,27 +115,35 @@ public class RoadGenerator : MonoBehaviour
             maxEnemyCount = roadLength / 20;
         }
 
-        while (enemyCount < maxEnemyCount)
+        while (true)
         {
-            int enemiesToSpawn = Random.Range(1, 4);
-            for (int i = 0; i < enemiesToSpawn && enemyCount < maxEnemyCount; i++)
+            Debug.Log("[Spawn System] Checking if enemy should be spawned");
+            if (enemyCount < maxEnemyCount)
             {
-                EventManager.Instance.PoliceCarSpawned();
-                float yPos;
-                if (Random.value > 0.5f)
+                int enemiesToSpawn = Random.Range(1, 4);
+                for (int i = 0; i < enemiesToSpawn && enemyCount < maxEnemyCount; i++)
                 {
-                    yPos = car.transform.position.y + Random.Range(10f, 20f) * segmentLength;
-                }
-                else
-                {
-                    yPos = car.transform.position.y - Random.Range(10f, 20f) * segmentLength;
-                }
-                float xPos = Random.Range(-roadWidth / 3, roadWidth / 3);
+                    if (car != null)
+                    {
+                        EventManager.Instance.PoliceCarSpawned();
+                        float yPos;
+                        if (Random.value > 0.5f)
+                        {
+                            yPos = car.transform.position.y + Random.Range(10f, 20f) * segmentLength;
+                        }
+                        else
+                        {
+                            yPos = car.transform.position.y - Random.Range(10f, 20f) * segmentLength;
+                        }
+                        float xPos = Random.Range(-roadWidth / 3, roadWidth / 3);
 
-                GameObject enemy = Instantiate(enemyCar, new Vector3(xPos, yPos, 0), Quaternion.identity, transform);
-                enemy.tag = "Enemy";
+                        GameObject enemy = Instantiate(enemyCar, new Vector3(xPos, yPos, 0), Quaternion.identity, transform);
+                        enemy.tag = "Enemy";
 
-                enemyCount++;
+                        enemyCount++;
+                        Debug.Log($"[Spawn System] Enemy spawned. Total enemies: {enemyCount}");
+                    }
+                }
             }
 
             yield return new WaitForSeconds(Random.Range(0.5f, 2f));

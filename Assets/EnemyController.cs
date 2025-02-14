@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed = 4f;
     public float currentHealth = 60f;
     public float maxHealth = 100f;
     public float fireRate = 1.5f;
     private float nextFireTime = 0f;
 
     public float driftFactor = 0.2f;
-    public float speedVariation = 0.30f;
+    public float speedVariation = 0.60f;
     public float reactionTime = 0.05f;
     public float predictionFactor = 0.5f;
     public float interceptionChance = 0.3f;
@@ -33,32 +33,22 @@ public class EnemyController : MonoBehaviour
     {
         if (player == null) return;
 
-        // Predict player's future position for interception
         Vector3 targetPosition = player.position + (Vector3)player.GetComponent<Rigidbody2D>().linearVelocity * predictionFactor;
-
-        // Calculate direction to target position
         Vector3 direction = targetPosition - transform.position;
         direction.Normalize();
 
-        // Add slight drift randomness
         Vector3 drift = new Vector3(Random.Range(-driftFactor, driftFactor), Random.Range(-driftFactor, driftFactor), 0);
         direction += drift;
         direction.Normalize();
 
-        // Randomly decide whether this enemy tries to cut you off or chase you
-        if (Random.value < interceptionChance)  // Example: 30% chance to intercept
+        if (Random.value < interceptionChance)
         {
             direction += (Vector3)player.GetComponent<Rigidbody2D>().linearVelocity.normalized * 0.5f;
             direction.Normalize();
         }
 
-        // Apply inconsistent speed to make pursuit feel more dynamic
         float adjustedSpeed = speed * Random.Range(1 - speedVariation, 1 + speedVariation);
-
-        // Smooth rotation to prevent instant snapping
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f), reactionTime);
-
-        // Move forward
         transform.Translate(Vector3.up * adjustedSpeed * Time.deltaTime);
     }
 
@@ -79,7 +69,10 @@ public class EnemyController : MonoBehaviour
         if (currentHealth == 0)
         {
             EventManager.Instance.PoliceCarDespawned();
-            Destroy(gameObject);
+            if (gameObject.CompareTag("Enemy")) // original gameObject is untagged
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

@@ -56,7 +56,7 @@ public class SoundManager : MonoBehaviour
         Debug.Log("Playing sound: " + clip.name);
         if (!audioSources.ContainsKey(clip))
         {
-            Debug.Log("Creating new audio source");
+            // Debug.Log("Creating new audio source");
             AudioSource newAudioSource = gameObject.AddComponent<AudioSource>();
             newAudioSource.clip = clip;
             if (clip == carSfx)
@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Audio source already exists");
+            // Debug.Log("Audio source already exists");
             audioSources[clip].Play();
         }
     }
