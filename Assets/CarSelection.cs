@@ -1,8 +1,14 @@
 using UnityEngine;
 
+
+using UnityEngine.UI;
+
 public class CarSelection : MonoBehaviour
 {
-    public SpriteRenderer carSpriteRenderer;
+   // public SpriteRenderer carSpriteRenderer;
+
+	public Image carSpriteRenderer;
+
     private int currentCarIndex = 0;
 
     private void Start()
@@ -36,6 +42,10 @@ public class CarSelection : MonoBehaviour
         return;
     }
 
-    carSpriteRenderer.sprite = GameManager.instance.carSprites[currentCarIndex];
+   // carSpriteRenderer.sprite = GameManager.instance.carSprites[currentCarIndex];
+
+	carSpriteRenderer.sprite = GameManager.instance.carSprites[currentCarIndex];
+
+
 	}
 }

@@ -70,7 +70,7 @@ public class CarController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float prevMove = rb.velocity.magnitude;
+        float prevMove = rb.linearVelocity.magnitude;
         float move = Input.GetAxis("Vertical") * moveSpeed;
         float turn = Input.GetAxis("Horizontal") * turnSpeed;
 
@@ -99,7 +99,7 @@ public class CarController : MonoBehaviour
             EventManager.Instance.NitroStateChanged(false);
         }
 
-        rb.velocity = transform.up * move;
+        rb.linearVelocity = transform.up * move;
         rb.angularVelocity = -turn;
 
         currentNitro = Mathf.Clamp(currentNitro, 0, maxNitro);
