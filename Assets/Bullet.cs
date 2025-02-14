@@ -3,11 +3,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 10f;
-    public float lifetime = 5f;
+    public float lifetime = 0.5f;
 
     private void OnEnable()
     {
-        Invoke("Deactivate", lifetime);
+        RestartLifetime();
     }
 
     void Update()
@@ -20,8 +20,26 @@ public class Bullet : MonoBehaviour
         BulletPool.Instance.ReturnBullet(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void RestartLifetime()
     {
-        Deactivate();
+        CancelInvoke();
+        Invoke("Deactivate", lifetime);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<CarController>().RemoveHealth(2f);
+            Deactivate();
+            return;
+        }
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.GetComponent<EnemyController>().RemoveHealth(50f);
+            Deactivate();
+            return;
+        }
+
     }
 }

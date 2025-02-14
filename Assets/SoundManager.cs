@@ -7,6 +7,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip shotSfx;
     public AudioClip carSfx;
     public AudioClip carCrashSfx;
+    public AudioClip policeSirenSfx;
+
+    private int policeCarsCount = 0;
 
     private Dictionary<AudioClip, AudioSource> audioSources = new Dictionary<AudioClip, AudioSource>();
 
@@ -17,6 +20,22 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.OnCarMoved += () => PlaySound(carSfx);
         EventManager.Instance.OnCarStopped += () => StopSound(carSfx);
         EventManager.Instance.OnCarCrashed += () => PlaySound(carCrashSfx);
+        EventManager.Instance.OnPoliceCarSpawned += () =>
+        {
+            policeCarsCount++;
+            if (policeCarsCount == 1)
+            {
+                PlaySound(policeSirenSfx);
+            }
+        };
+        EventManager.Instance.OnPoliceCarDespawned += () =>
+        {
+            policeCarsCount--;
+            if (policeCarsCount == 0)
+            {
+                StopSound(policeSirenSfx);
+            }
+        };
     }
 
     private void OnDisable()
@@ -34,14 +53,14 @@ public class SoundManager : MonoBehaviour
 
     private void PlaySound(AudioClip clip)
     {
-        // debug log
         Debug.Log("Playing sound: " + clip.name);
         if (!audioSources.ContainsKey(clip))
         {
             Debug.Log("Creating new audio source");
             AudioSource newAudioSource = gameObject.AddComponent<AudioSource>();
             newAudioSource.clip = clip;
-            if (clip == carSfx) {
+            if (clip == carSfx)
+            {
                 newAudioSource.loop = true;
             }
             newAudioSource.Play();

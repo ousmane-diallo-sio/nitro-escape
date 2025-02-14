@@ -31,6 +31,7 @@ public class BulletPool : MonoBehaviour
         {
             GameObject bullet = bulletPool.Dequeue();
             bullet.SetActive(true);
+            bullet.GetComponent<Bullet>().RestartLifetime();
             return bullet;
         }
         else
