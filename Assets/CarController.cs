@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class CarController : MonoBehaviour
 {
@@ -130,6 +131,10 @@ public class CarController : MonoBehaviour
     public void RemoveHealth(float amount)
     {
         currentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
+        if (currentHealth == 0)
+        {
+            SceneManager.LoadScene("MainMenuScene");
+        }
     }
 
     void Shoot()
